@@ -99,6 +99,7 @@ export const BlogBlock = (props: any) => {
               resize="none"
               size="lg"
               minHeight="100px"
+              focusBorderColor="transparent"
               value={text}
               onChange={setTextHandler}
             />
@@ -123,7 +124,6 @@ export const BlogBlock = (props: any) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              {/* {attachments ? <><MiniBox top="95" ></MiniBox></> : ""} */}
             </Flex>
           </Flex>
         </Box>

@@ -1,7 +1,9 @@
 import { Box, Center, ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
-import { MainPage } from "./components/mainPage/MainPage";
+import { MainPage } from "./components/MainPage/MainPage";
 import { useState, useEffect } from "react";
+import { Footer } from "./components/Footer/Footer";
+
 
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
@@ -33,6 +35,7 @@ function App() {
           <MainPage screenWidth={width} />
         )}
       </Box>
+      <Footer />
     </ChakraProvider>
   );
 }
