@@ -104,7 +104,7 @@ export const MainPage = (props: any) => {
       <Flex justifyContent="center">
         <Box
           border="1px solid #E5D9D7"
-          width={props.screenWidth >= 700 ? "50%" : ""}
+          width={props.screenWidth >= 900 ? "40%" : ""}
           margin="5px"
         >
           <BlogBlock
@@ -125,7 +125,7 @@ export const MainPage = (props: any) => {
             />
           ))}
         </Box>
-
+        
         <RightMenu />
       </Flex>
     </>
