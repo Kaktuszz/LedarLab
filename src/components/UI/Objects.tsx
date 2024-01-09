@@ -12,10 +12,7 @@ import {
 import { useState } from "react";
 
 export const Objects = (props: any) => {
-
   const [follow, setFollow] = useState<Boolean>(false);
-
-
 
   return (
     <>
@@ -23,21 +20,34 @@ export const Objects = (props: any) => {
         <CardBody>
           <Stack>
             <Flex>
-              <Avatar size="md" name="Name Surname" src={props.avatar} margin="3px" />
+              <Avatar
+                size="md"
+                name="Name Surname"
+                src={props.avatar}
+                margin="3px"
+              />
               <Box margin="5px">
-                <Heading size="xs">{props.name} {props.surname}</Heading>
+                <Heading size="xs">
+                  {props.name} {props.surname}
+                </Heading>
                 <Text pt="2" fontSize="sm">
                   {props.description}
                 </Text>
               </Box>
-              <Button position="absolute" right="0" margin="10px" onClick={()=>setFollow(prevState => !prevState)} colorScheme={follow ? "gray" : "linkedin"} >
+              <Button
+                position="absolute"
+                right="0"
+                margin="10px"
+                size={props.screenWidth < 900 ? "xs" : "md"}
+                onClick={() => setFollow((prevState) => !prevState)}
+                colorScheme={follow ? "gray" : "linkedin"}
+              >
                 {follow ? "Following" : "Follow"}
               </Button>
             </Flex>
           </Stack>
         </CardBody>
       </Card>
-      
     </>
   );
 };
