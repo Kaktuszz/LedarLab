@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   Icon,
+  IconButton,
   Image,
   Link,
   Menu,
@@ -11,16 +12,23 @@ import {
   MenuIcon,
   MenuItem,
   MenuList,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Text,
   Textarea,
 } from "@chakra-ui/react";
 import { FaRegHeart, FaImage, FaFileAlt, FaLink } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { AddIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 export const BlogBlock = (props: any) => {
   const [text, setText] = useState("");
   const [like, setLike] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const setTextHandler = (e: any) => {
     setText(e.target.value);
@@ -46,25 +54,119 @@ export const BlogBlock = (props: any) => {
                   color="black"
                 />
               </Link>
+
               <Box flexDirection="column" display="flex">
-                <Link height="25px">{props.username}</Link>
+                <Box display="flex">
+                  <Link height="25px" fontWeight="bold">
+                    {props.username}
+                  </Link>
+                  {props.personal ? (
+                    <Box position="absolute" right="30px" marginTop="5px">
+                      <Popover placement="bottom-end" isLazy={true}>
+                        <PopoverTrigger>
+                          <IconButton
+                            aria-label="Edit"
+                            variant="outline"
+                            isRound={true}
+                            size="sm"
+                            icon={<BsThreeDotsVertical />}
+                          />
+                        </PopoverTrigger>
+                        <PopoverContent w="80px">
+                          <PopoverBody userSelect="none">
+                            <Box>
+                              <Link
+                                onClick={() =>
+                                  setIsEdit((prevState) => !prevState)
+                                }
+                              >
+                                Edit
+                              </Link>
+                            </Box>
+                            <Box>
+                              <Popover placement="bottom-end" isLazy={true}>
+                                <PopoverTrigger>
+                                  <Link>Delete</Link>
+                                </PopoverTrigger>
+                                <PopoverContent marginTop="10px">
+                                  <PopoverHeader>
+                                    Do you really want to delete this post?
+                                  </PopoverHeader>
+                                  <PopoverBody>
+                                    <Button colorScheme="red" marginRight="5px">
+                                      Yes
+                                    </Button>
+                                    <Button>No</Button>
+                                  </PopoverBody>
+                                </PopoverContent>
+                              </Popover>
+                            </Box>
+                          </PopoverBody>
+                        </PopoverContent>
+                      </Popover>
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+                </Box>
+
                 <Link height="25px">{props.userTag}</Link>
               </Box>
             </Flex>
           </Box>
           <Box width="100%">
-            <Text marginLeft="60px" marginBottom="10px" marginRight="5px">
-              {props.blogText}
-            </Text>
-            <Image
-              src={props.attachments}
-              maxWidth="md"
-              width="80%"
-              marginLeft="60px"
-              marginRight="60px"
-              borderRadius="5px"
-              userSelect="none"
-            />
+            {isEdit ? (
+              <>
+                <Textarea
+                  value={props.blogText}
+                  borderRadius="0"
+                  height="auto"
+                  width="85%"
+                  marginLeft="60px"
+                  resize="none"
+                  minHeight="100px"
+                />
+
+                {props.attachments ? (
+                  <Image
+                    src={props.attachments}
+                    maxWidth="xs"
+                    width="80%"
+                    margin=" 5px  0px  5px 60px "
+                    
+                    borderRadius="5px"
+                    userSelect="none"
+                    boxSize="20%"
+                  />
+                ) : (
+                  ""
+                )}
+
+                <Box marginLeft="55px">
+                  <Button margin="5px">Confirm</Button>
+                  <Button margin="5px">Upload attachments</Button>
+                </Box>
+              </>
+            ) : (
+              <>
+                <Text marginLeft="60px" marginBottom="10px" marginRight="5px">
+                  {props.blogText}
+                </Text>
+                {props.attachments ? (
+                  <Image
+                    src={props.attachments}
+                    maxWidth="md"
+                    width="80%"
+                    marginLeft="60px"
+                    marginRight="60px"
+                    borderRadius="5px"
+                    userSelect="none"
+                  />
+                ) : (
+                  ""
+                )}
+              </>
+            )}
           </Box>
 
           <Box margin="10px 10px 10px 60px" display="flex">
